@@ -4,6 +4,7 @@ import sys
 
 sys.path.append("../Dataset")
 from matlab_dataset import MatLabDataset
+from json_dataset import JSONDataset
 
 import numpy as np
 import torch.nn as nn
@@ -127,10 +128,8 @@ if cuda:
 # Configure data loader
 dataset_dir = os.path.join(os.getcwd(), "../Dataset")
 dataloader = torch.utils.data.DataLoader(
-    MatLabDataset(
-        os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat"),
-        os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat"),
-    ),
+    # MatLabDataset( os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat"), os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat"),),
+    JSONDataset( os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat.json"), os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat.json"),),
     batch_size=opt.batch_size,
     shuffle=True,
 )

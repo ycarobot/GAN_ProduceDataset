@@ -130,7 +130,6 @@ dataloader = torch.utils.data.DataLoader(
     MatLabDataset(
         os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat"),
         os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat"),
-        # transform=transforms.Compose( [transforms.Resize(opt.features), transforms.ToTensor(), ]),
     ),
     batch_size=opt.batch_size,
     shuffle=True,

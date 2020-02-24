@@ -16,4 +16,4 @@ class JSONDataset(Dataset):
         return len(self.labels)
 
     def __getitem__(self, idx):
-        return torch.Tensor(self.data[idx]), torch.Tensor(self.labels[idx])
+        return torch.Tensor(self.data[idx]), torch.Tensor(self.labels[idx]) - 1

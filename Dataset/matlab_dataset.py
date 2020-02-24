@@ -1,3 +1,4 @@
+import torch
 from torch.utils.data import Dataset
 import scipy.io as scio
 
@@ -14,4 +15,4 @@ class MatLabDataset(Dataset):
         return len(self.labels)
 
     def __getitem__(self, idx):
-        return self.data[idx], self.labels[idx]
+        return torch.Tensor(self.data[idx]), torch.Tensor(self.labels[idx]) - 1

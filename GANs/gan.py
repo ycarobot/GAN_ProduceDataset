@@ -129,7 +129,10 @@ if cuda:
 dataset_dir = os.path.join(os.getcwd(), "../Dataset")
 dataloader = torch.utils.data.DataLoader(
     # MatLabDataset( os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat"), os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat"),),
-    JSONDataset( os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat.json"), os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat.json"),),
+    JSONDataset(
+        os.path.join(dataset_dir, "OfficeCaltech_1_SourceData.mat.json"),
+        os.path.join(dataset_dir, "OfficeCaltech_1_SourceLabel.mat.json"),
+    ),
     batch_size=opt.batch_size,
     shuffle=True,
 )
@@ -148,6 +151,7 @@ Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 #  Training
 # ----------
 
+result = []
 for epoch in range(opt.n_epochs):
     for i, (imgs, _) in enumerate(
         dataloader
@@ -214,9 +218,6 @@ for epoch in range(opt.n_epochs):
 
         batches_done = epoch * len(dataloader) + i
         if batches_done % opt.sample_interval == 0:
-            save_image(
-                gen_imgs.data[:25],
-                "images/%d.png" % batches_done,
-                nrow=5,
-                normalize=True,
-            )
+            result.append(gen_imgs[0])
+result_tensor = torch.stack(result)
+result_numpy = result_tensor.numpy()
